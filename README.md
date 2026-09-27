@@ -75,7 +75,7 @@ The vault uses:
 -   HTTP-only session cookies
 -   Login rate limiting
 
-The master password is never stored.
+The master password is never stored by the application.
 
 The TOTP secrets are kept inside the encrypted vault and are not
 returned as part of the normal account listing.
@@ -193,7 +193,7 @@ security are strongly recommended.
 
 egzola
 
-GitHub\
+GitHub  
 https://github.com/egzola
 
 ------------------------------------------------------------------------
