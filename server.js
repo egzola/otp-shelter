@@ -6,6 +6,10 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 
+
+const isDocker = fs.existsSync('/.dockerenv');
+
+
 const __dirname = path.dirname(
     fileURLToPath(import.meta.url)
 );
@@ -22,8 +26,10 @@ const PORT =
 |--------------------------------------------------------------------------
 */
 
-const DATA_DIR =
-    path.join(__dirname, "data");
+const DATA_DIR = isDocker
+    ? '/data'
+    : path.join(__dirname, 'data');
+
 
 const VAULT_FILE =
     path.join(DATA_DIR, "vault.json");
