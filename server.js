@@ -7,13 +7,12 @@ import path from "path";
 import { fileURLToPath } from "url";
 
 
-const __dirname = path.dirname(
-    fileURLToPath(
-        import.meta.url
-    )
-);
-
 const isDocker = fs.existsSync('/.dockerenv');
+
+
+const __dirname = path.dirname(
+    fileURLToPath(import.meta.url)
+);
 
 const app = express();
 
@@ -35,17 +34,14 @@ const DATA_DIR = isDocker
 const VAULT_FILE =
     path.join(DATA_DIR, "vault.json");
 
-// check if data folder exists
-if (!fs.existsSync(DATA_DIR)) {
-    fs.mkdirSync(DATA_DIR, { recursive: true });
-}
 
-// check if vault file exists
-if (!fs.existsSync(VAULT_FILE)) {
-    fs.writeFileSync(VAULT_FILE, JSON.stringify({ version: 2, createdAt: new Date().toISOString(), sites: [] }, null, 2));
-    //    fs.chmodSync(VAULT_FILE, 0o600);
-}
-
+fs.mkdirSync(
+    DATA_DIR,
+    {
+        recursive: true,
+        mode: 0o700
+    }
+);
 
 
 /*
@@ -136,7 +132,7 @@ app.use(
 );
 
 app.get("/health", (req, res) => {
-    res.status(200).json({ status: "ok" });
+  res.status(200).json({ status: "ok" });
 });
 
 
@@ -1088,7 +1084,11 @@ function writeVault(
             encrypted,
             null,
             2
-        )
+        ),
+
+        {
+            mode: 0o600
+        }
     );
 
 
@@ -1098,7 +1098,10 @@ function writeVault(
     );
 
 
-    //    fs.chmodSync(        VAULT_FILE,        0o600    );
+    fs.chmodSync(
+        VAULT_FILE,
+        0o600
+    );
 }
 
 
@@ -1980,11 +1983,18 @@ app.post(
                             encrypted,
                             null,
                             2
-                        )
+                        ),
+
+                        {
+                            mode: 0o600
+                        }
                     );
 
 
-                    //                    fs.chmodSync(                        VAULT_FILE,                        0o600                    );
+                    fs.chmodSync(
+                        VAULT_FILE,
+                        0o600
+                    );
 
 
                     /*
@@ -2215,9 +2225,9 @@ app.post(
                         N: 32768, r: 8, p: 1, dkLen: 32
                     });
                     const tmp = path.join(DATA_DIR, `.vault-${process.pid}-${crypto.randomUUID()}.tmp`);
-                    fs.writeFileSync(tmp, JSON.stringify(encrypted, null, 2));
+                    fs.writeFileSync(tmp, JSON.stringify(encrypted, null, 2), { mode: 0o600 });
                     fs.renameSync(tmp, VAULT_FILE);
-                    //fs.chmodSync(VAULT_FILE, 0o600);
+                    fs.chmodSync(VAULT_FILE, 0o600);
 
                     const stored = sessions.get(req.session.id);
                     if (!stored) throw new Error("Session expired.");
