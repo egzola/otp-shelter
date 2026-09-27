@@ -2220,8 +2220,8 @@ app.post(
 
                     const stored = sessions.get(req.session.id);
                     if (!stored) throw new Error("Session expired.");
-                    try { stored.key.fill(0); } catch {}
-                    try { stored.backupKey?.fill(0); } catch {}
+                    try { stored.key.fill(0); } catch { }
+                    try { stored.backupKey?.fill(0); } catch { }
                     stored.key = newKey;
                     stored.backupKey = newBackupKey;
                     stored.lastUsed = Date.now();
@@ -3060,12 +3060,10 @@ setInterval(
 
 app.listen(
     PORT,
-    "0.0.0.0",
-
     () => {
 
         console.log(
-            `OTP-Shelter: http://0.0.0.0:${PORT}`
+            `OTP-Shelter listening on port ${PORT}`
         );
 
 
@@ -3074,3 +3072,4 @@ app.listen(
         );
     }
 );
+
