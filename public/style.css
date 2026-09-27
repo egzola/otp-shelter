@@ -1,0 +1,2562 @@
+:root {
+
+    color-scheme: dark;
+
+    --bg: #080d18;
+
+    --panel: rgba(17, 25, 39, .82);
+    --panel-solid: #111927;
+
+    --line:
+        rgba(148, 163, 184, .14);
+
+    --line-strong:
+        rgba(148, 163, 184, .24);
+
+    --text: #edf3ff;
+
+    --muted: #8d9bb3;
+    --muted-strong: #b2bfd2;
+
+    --blue: #4f8cff;
+
+    --green: #4ee29a;
+    --yellow: #f7c75c;
+
+    --danger: #ff6872;
+
+    --shadow:
+        0 20px 60px rgba(0, 0, 0, .32);
+
+}
+
+
+* {
+    box-sizing: border-box;
+}
+
+
+html,
+body {
+
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+
+    overflow: hidden;
+
+}
+
+
+html {
+    min-height: 100%;
+}
+
+
+body {
+
+    min-height: 100vh;
+
+    color: var(--text);
+
+    font-family:
+        Inter,
+        ui-sans-serif,
+        system-ui,
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        sans-serif;
+
+    background:
+
+        radial-gradient(circle at 15% 0%,
+            rgba(53, 101, 190, .20),
+            transparent 30%),
+
+        radial-gradient(circle at 90% 15%,
+            rgba(33, 75, 150, .16),
+            transparent 28%),
+
+        linear-gradient(135deg,
+            #070b14,
+            #0a101c 50%,
+            #080d16);
+
+}
+
+
+body::before {
+
+    content: "";
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    opacity: .35;
+
+    background-image:
+
+        linear-gradient(rgba(255, 255, 255, .015) 1px,
+            transparent 1px),
+
+        linear-gradient(90deg,
+            rgba(255, 255, 255, .015) 1px,
+            transparent 1px);
+
+    background-size:
+        48px 48px;
+
+    mask-image:
+        linear-gradient(to bottom,
+            black,
+            transparent 70%);
+
+}
+
+
+button,
+input {
+    font: inherit;
+}
+
+
+button {
+    border: 0;
+}
+
+
+button:disabled {
+
+    opacity: .45;
+
+    cursor:
+        not-allowed;
+
+}
+
+
+/* ==========================================================
+       APP
+    ========================================================== */
+
+.app {
+
+    width:
+        min(1180px, 100%);
+
+    height: 100vh;
+
+    margin:
+        0 auto;
+
+    padding:
+        30px 22px 24px;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    min-height:
+        0;
+
+}
+
+
+/* ==========================================================
+       HEADER
+    ========================================================== */
+
+.header {
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content:
+        space-between;
+
+    gap: 24px;
+
+    margin-bottom:
+        28px;
+
+    flex-shrink:
+        0;
+
+}
+
+
+.brand {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 17px;
+
+}
+
+
+.logo {
+
+    width: 74px;
+    height: 74px;
+
+    display: grid;
+
+    place-items: center;
+
+    border-radius: 19px;
+
+    background:
+
+        linear-gradient(145deg,
+            rgba(79, 140, 255, .28),
+            rgba(79, 140, 255, .06));
+
+    border:
+        1px solid rgba(104, 157, 255, .28);
+
+    box-shadow:
+
+        inset 0 1px 0 rgba(255, 255, 255, .08),
+
+        0 12px 40px rgba(40, 100, 220, .18);
+
+}
+
+
+.logo img {
+
+    width: 64px;
+    height: 64px;
+
+    stroke:
+        #8db6ff;
+
+}
+
+
+.brand h1 {
+
+    margin: 0;
+
+    font-size:
+        clamp(30px, 4vw, 40px);
+
+    letter-spacing:
+        -1.4px;
+
+    line-height:
+        1;
+
+}
+
+
+.brand h1 span {
+
+    color:
+        #70a1ff;
+
+}
+
+
+.brand p {
+
+    margin:
+        8px 0 0;
+
+    color:
+        var(--muted);
+
+    font-size:
+        14px;
+
+    line-height:
+        1.5;
+
+}
+
+
+.brand strong {
+
+    color:
+        var(--muted-strong);
+
+    font-weight:
+        600;
+
+}
+
+
+/* ==========================================================
+       BUTTONS
+    ========================================================== */
+
+button,
+.button {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        center;
+
+    gap:
+        9px;
+
+    border-radius:
+        12px;
+
+    padding:
+        12px 17px;
+
+    color:
+        var(--text);
+
+    background:
+        rgba(255, 255, 255, .055);
+
+    border:
+        1px solid var(--line);
+
+    cursor:
+        pointer;
+
+    text-decoration:
+        none;
+
+    transition:
+
+        transform .16s ease,
+        background .16s ease,
+        border-color .16s ease,
+        box-shadow .16s ease;
+
+}
+
+
+button:hover,
+.button:hover {
+
+    background:
+        rgba(255, 255, 255, .09);
+
+    border-color:
+        var(--line-strong);
+
+    transform:
+        translateY(-1px);
+
+}
+
+
+button:active {
+
+    transform:
+        translateY(0) scale(.98);
+
+}
+
+
+.primary {
+
+    color:
+        white;
+
+    border:
+        1px solid rgba(130, 175, 255, .5);
+
+    background:
+
+        linear-gradient(135deg,
+            #397cff,
+            #5b8dff);
+
+    box-shadow:
+
+        0 10px 28px rgba(47, 109, 255, .23);
+
+}
+
+
+.primary:hover {
+
+    background:
+
+        linear-gradient(135deg,
+            #4b89ff,
+            #6c9aff);
+
+    box-shadow:
+
+        0 15px 35px rgba(47, 109, 255, .32);
+
+}
+
+
+.iconButton {
+
+    width: 42px;
+    height: 42px;
+
+    padding: 0;
+
+    flex-shrink:
+        0;
+
+    color:
+        var(--muted-strong);
+
+    background:
+        rgba(255, 255, 255, .045);
+
+}
+
+
+.iconButton:hover {
+
+    color:
+        white;
+
+    background:
+        rgba(255, 255, 255, .09);
+
+}
+
+
+/* ==========================================================
+       MENU
+    ========================================================== */
+
+.menu {
+    display: flex;
+    position:relative;
+    flex-shrink:0;
+    gap:10px;
+}
+
+
+.menuButton {
+
+    width: 52px;
+    height: 52px;
+
+    padding: 0;
+
+    font-size:
+        24px;
+
+    background:
+        rgba(255, 255, 255, .055);
+
+}
+
+
+.menuPanel {
+
+    position:
+        absolute;
+
+    top:
+        calc(100% + 12px);
+
+    right:
+        0;
+
+    width:
+        270px;
+
+    padding:
+        8px;
+
+    border:
+        1px solid var(--line-strong);
+
+    border-radius:
+        16px;
+
+    background:
+        rgba(16, 24, 38, .96);
+
+    backdrop-filter:
+        blur(18px);
+
+    box-shadow:
+        var(--shadow);
+
+    z-index:
+        50;
+
+    opacity:
+        0;
+
+    visibility:
+        hidden;
+
+    transform:
+        translateY(-8px) scale(.98);
+
+    transition:
+        .16s ease;
+
+}
+
+
+.menuPanel.open {
+
+    opacity:
+        1;
+
+    visibility:
+        visible;
+
+    transform:
+        translateY(0) scale(1);
+
+}
+
+
+.menuItem {
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        3px;
+
+    width:
+        100%;
+
+    padding:
+        13px 14px;
+
+    border-radius:
+        11px;
+
+    color:
+        var(--text);
+
+    background:
+        transparent;
+
+    cursor:
+        pointer;
+
+    text-decoration:
+        none;
+
+}
+
+
+.menuItem:hover {
+
+    background:
+        rgba(255, 255, 255, .06);
+
+}
+
+
+.menuItemTitle {
+
+    font-weight:
+        600;
+
+}
+
+
+.menuItemDescription {
+
+    color:
+        var(--muted);
+
+    font-size:
+        12px;
+
+}
+
+
+.menuDanger {
+
+    color:
+        #ff9aa1;
+
+}
+
+
+.menuDivider {
+
+    height:
+        1px;
+
+    margin:
+        7px 5px;
+
+    background:
+        var(--line);
+
+}
+
+
+/* ==========================================================
+       MAIN CARD
+    ========================================================== */
+
+.card {
+
+    /*
+     * IMPORTANTE:
+     *
+     * A card agora ocupa somente o espaço disponível
+     * entre o header e o footer.
+     */
+
+    flex:
+        1;
+
+    min-height:
+        0;
+
+    padding:
+        22px;
+
+    border:
+        1px solid var(--line);
+
+    border-radius:
+        24px;
+
+    background:
+
+        linear-gradient(145deg,
+            rgba(22, 31, 47, .86),
+            rgba(13, 20, 32, .86));
+
+    backdrop-filter:
+        blur(18px);
+
+    box-shadow:
+
+        inset 0 1px 0 rgba(255, 255, 255, .025),
+
+        var(--shadow);
+
+    /*
+     * Estrutura vertical interna.
+     */
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    overflow:
+        hidden;
+
+}
+
+
+/* ==========================================================
+       TOOLBAR
+    ========================================================== */
+
+.accountsHeader {
+
+    display: flex;
+
+    align-items:
+        center;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+    padding:
+        5px 3px 22px;
+
+    border-bottom:
+        1px solid var(--line);
+
+    margin-bottom:
+        8px;
+
+    /*
+     * Toolbar nunca deve encolher.
+     */
+
+    flex-shrink:
+        0;
+
+}
+
+
+.accountsTitle {
+
+    display: flex;
+
+    align-items:
+        center;
+
+    flex-wrap:
+        wrap;
+
+    gap:
+        12px;
+
+}
+
+
+.accountsTitle h2 {
+
+    margin: 0;
+
+    font-size:
+        25px;
+
+    letter-spacing:
+        -.5px;
+
+}
+
+
+.accountSubtitle {
+
+    margin:
+        5px 0 0;
+
+    color:
+        var(--muted);
+
+    font-size:
+        13px;
+
+}
+
+
+.searchWrapper {
+
+    position:
+        relative;
+
+    width:
+        min(370px, 100%);
+
+}
+
+
+.searchIcon {
+
+    position:
+        absolute;
+
+    left:
+        15px;
+
+    top:
+        50%;
+
+    transform:
+        translateY(-50%);
+
+    color:
+        var(--muted);
+
+    pointer-events:
+        none;
+
+}
+
+
+.searchShortcut {
+
+    position:
+        absolute;
+
+    right:
+        10px;
+
+    top:
+        50%;
+
+    transform:
+        translateY(-50%);
+
+    padding:
+        3px 7px;
+
+    border-radius:
+        6px;
+
+    color:
+        var(--muted);
+
+    background:
+        rgba(255, 255, 255, .055);
+
+    border:
+        1px solid var(--line);
+
+    font-size:
+        11px;
+
+    pointer-events:
+        none;
+
+}
+
+
+/* ==========================================================
+       INPUTS
+    ========================================================== */
+
+input {
+
+    width:
+        100%;
+
+    padding:
+        14px 16px;
+
+    border-radius:
+        12px;
+
+    border:
+        1px solid rgba(148, 163, 184, .22);
+
+    background:
+        rgba(5, 10, 18, .48);
+
+    color:
+        var(--text);
+
+    outline:
+        none;
+
+    transition:
+        .16s ease;
+
+}
+
+
+input::placeholder {
+
+    color:
+        #65738b;
+
+}
+
+
+input:focus {
+
+    border-color:
+        rgba(94, 147, 255, .8);
+
+    box-shadow:
+
+        0 0 0 3px rgba(79, 140, 255, .12);
+
+}
+
+
+.search {
+
+    padding-left:
+        42px;
+
+    padding-right:
+        65px;
+
+}
+
+
+/* ==========================================================
+       SITES
+       ÚNICO SCROLL VERTICAL DA APLICAÇÃO
+    ========================================================== */
+
+.sites {
+
+    /*
+     * Ocupa todo o espaço restante dentro da card.
+     */
+
+    flex:
+        1;
+
+    min-height:
+        0;
+
+    /*
+     * Scroll somente aqui.
+     */
+
+    overflow-y:
+        auto;
+
+    overflow-x:
+        hidden;
+
+    display:
+        flex;
+
+    flex-direction:
+        column;
+
+    gap:
+        9px;
+
+    /*
+     * Pequeno espaço para o scrollbar não encostar
+     * visualmente nos itens.
+     */
+
+    padding:
+        8px 3px 8px;
+
+    scrollbar-gutter:
+        stable;
+
+}
+
+
+/*
+ * Scrollbar
+ */
+
+.sites::-webkit-scrollbar {
+
+    width:
+        8px;
+
+}
+
+
+.sites::-webkit-scrollbar-track {
+
+    background:
+        transparent;
+
+}
+
+
+.sites::-webkit-scrollbar-thumb {
+
+    border-radius:
+        10px;
+
+    background:
+        rgba(148, 163, 184, .20);
+
+}
+
+
+.sites::-webkit-scrollbar-thumb:hover {
+
+    background:
+        rgba(148, 163, 184, .32);
+
+}
+
+
+/* ==========================================================
+       SITES
+    ========================================================== */
+
+.site {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        minmax(0, 1fr) auto;
+
+    align-items:
+        center;
+
+    gap:
+        25px;
+
+    min-height:
+        84px;
+
+    padding:
+        14px 16px;
+
+    border-radius:
+        16px;
+
+    border:
+        1px solid transparent;
+
+    transition:
+        .18s ease;
+
+    /*
+     * Não deixa os cards encolherem.
+     */
+
+    flex-shrink:
+        0;
+
+}
+
+
+.site:hover {
+
+    border-color:
+        var(--line);
+
+    background:
+        rgba(255, 255, 255, .025);
+
+}
+
+
+.siteInfo {
+
+    min-width:
+        0;
+
+}
+
+
+.siteName {
+
+    display:
+        inline-flex;
+
+    align-items:
+        center;
+
+    gap:
+        7px;
+
+    max-width:
+        100%;
+
+    font-size:
+        17px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        -.1px;
+
+    overflow-wrap:
+        anywhere;
+
+    cursor:
+        pointer;
+
+    transition:
+        opacity .18s ease;
+
+}
+
+
+/*
+ * Reserved edit indicator prevents layout shifting on hover
+ */
+
+.siteName::after {
+
+    content:
+        "✎";
+
+    display:
+        inline-block;
+
+    width:
+        14px;
+
+    flex:
+        0 0 14px;
+
+    font-size:
+        15px;
+
+    font-weight:
+        400;
+
+    line-height:
+        1;
+
+    opacity:
+        0;
+
+    transform:
+        translateX(-2px);
+
+    transition:
+
+        opacity .18s ease,
+        transform .18s ease;
+
+}
+
+
+/*
+ * Show edit hint only on hover devices
+ */
+
+@media (hover: hover) {
+
+    .siteName:hover {
+
+        opacity:
+            .88;
+
+    }
+
+
+    .siteName:hover::after {
+
+        opacity:
+            .65;
+
+        transform:
+            translateX(0);
+
+    }
+
+}
+
+
+.siteAccount {
+
+    margin-top:
+        5px;
+
+    color:
+        var(--muted);
+
+    font-size:
+        13px;
+
+    overflow-wrap:
+        anywhere;
+
+}
+
+
+/* ==========================================================
+       OTP
+    ========================================================== */
+
+.codeActions {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        8px;
+
+    flex-shrink:
+        0;
+
+}
+
+
+.code {
+
+    min-width:
+        125px;
+
+    padding:
+        9px 11px;
+
+    border-radius:
+        10px;
+
+    color:
+        #9bc0ff;
+
+    font-family:
+
+        ui-monospace,
+        SFMono-Regular,
+        Menlo,
+        Monaco,
+        Consolas,
+        monospace;
+
+    font-size:
+        22px;
+
+    font-weight:
+        700;
+
+    letter-spacing:
+        2px;
+
+    text-align:
+        center;
+
+    cursor:
+        pointer;
+
+    user-select:
+        none;
+
+    transition:
+        .15s ease;
+
+}
+
+
+.code:hover {
+
+    color:
+        white;
+
+    background:
+        rgba(79, 140, 255, .08);
+
+}
+
+
+/* ==========================================================
+       OTP CODE CHANGE ANIMATION
+    ========================================================== */
+
+.code.codeChanged {
+
+    animation:
+        codeChanged .38s ease;
+
+}
+
+
+@keyframes codeChanged {
+
+    0% {
+
+        transform:
+            scale(.94);
+
+        opacity:
+            .35;
+
+        filter:
+            blur(2px);
+
+    }
+
+
+    55% {
+
+        transform:
+            scale(1.08);
+
+        opacity:
+            1;
+
+        color:
+            white;
+
+        text-shadow:
+
+            0 0 18px rgba(79, 140, 255, .65);
+
+    }
+
+
+    100% {
+
+        transform:
+            scale(1);
+
+        opacity:
+            1;
+
+        filter:
+            blur(0);
+
+    }
+
+}
+
+
+/* ==========================================================
+       TIMER
+    ========================================================== */
+
+.otpTimer {
+
+    --progress: 1;
+    --timer-color: var(--blue);
+
+    position:
+        relative;
+
+    width: 42px;
+    height: 42px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    flex-shrink:
+        0;
+
+    border-radius:
+        50%;
+
+    background:
+
+        conic-gradient(var(--timer-color) calc(var(--progress) * 360deg),
+
+            rgba(255, 255, 255, .08) 0);
+
+    transition:
+        background .25s linear;
+
+}
+
+
+.otpTimer::before {
+
+    content:
+        "";
+
+    position:
+        absolute;
+
+    inset:
+        4px;
+
+    border-radius:
+        inherit;
+
+    background:
+        var(--panel-solid);
+
+}
+
+
+.otpTimer span {
+
+    position:
+        relative;
+
+    z-index:
+        1;
+
+    font-size:
+        11px;
+
+    font-weight:
+        700;
+
+    font-variant-numeric:
+        tabular-nums;
+
+}
+
+
+/* ==========================================================
+       EMPTY
+    ========================================================== */
+
+.empty {
+
+    /*
+     * Ocupa a altura disponível da área scrollável.
+     */
+
+    flex:
+        1;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    min-height:
+        100%;
+
+    padding:
+        40px;
+
+    text-align:
+        center;
+
+    border-radius:
+        18px;
+
+    border:
+
+        1px dashed rgba(148, 163, 184, .15);
+
+}
+
+
+.emptyIcon {
+
+    width: 66px;
+    height: 66px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    margin:
+        0 auto 17px;
+
+    border-radius:
+        20px;
+
+    color:
+        #86adff;
+
+    background:
+        rgba(79, 140, 255, .08);
+
+    border:
+        1px solid rgba(79, 140, 255, .15);
+
+    font-size:
+        29px;
+
+}
+
+
+.empty h3 {
+
+    margin: 0;
+
+    font-size:
+        19px;
+
+}
+
+
+.empty p {
+
+    margin:
+        8px 0 20px;
+
+    color:
+        var(--muted);
+
+}
+
+
+/* ==========================================================
+       MODAL
+    ========================================================== */
+
+.modal {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    display:
+        none;
+
+    place-items:
+        center;
+
+    padding:
+        20px;
+
+    background:
+        rgba(3, 7, 13, .68);
+
+    backdrop-filter:
+        blur(8px);
+
+    z-index:
+        100;
+
+}
+
+
+.modal.open {
+
+    display:
+        grid;
+
+    animation:
+        modalFade .18s ease;
+
+}
+
+
+@keyframes modalFade {
+
+    from {
+
+        opacity:
+            0;
+
+    }
+
+
+    to {
+
+        opacity:
+            1;
+
+    }
+
+}
+
+
+.modalDialog {
+
+    width:
+        min(650px, 100%);
+
+    max-height:
+        calc(100vh - 40px);
+
+    overflow-y:
+        auto;
+
+    padding:
+        25px;
+
+    border-radius:
+        24px;
+
+    border:
+        1px solid var(--line-strong);
+
+    background:
+
+        linear-gradient(145deg,
+            #131d2d,
+            #0d1522);
+
+    box-shadow:
+
+        0 30px 100px rgba(0, 0, 0, .6);
+
+    animation:
+        modalPop .2s ease;
+
+}
+
+
+@keyframes modalPop {
+
+    from {
+
+        opacity:
+            0;
+
+        transform:
+            translateY(10px) scale(.98);
+
+    }
+
+
+    to {
+
+        opacity:
+            1;
+
+        transform:
+            translateY(0) scale(1);
+
+    }
+
+}
+
+
+.modalHeader {
+
+    display:
+        flex;
+
+    align-items:
+        flex-start;
+
+    justify-content:
+        space-between;
+
+    gap:
+        20px;
+
+    margin-bottom:
+        24px;
+
+}
+
+
+.modalTitleGroup {
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        14px;
+
+}
+
+
+.modalIcon {
+
+    width: 48px;
+    height: 48px;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    border-radius:
+        15px;
+
+    background:
+        rgba(79, 140, 255, .12);
+
+    color:
+        #91b6ff;
+
+    font-size:
+        25px;
+
+}
+
+
+.modalHeader h2 {
+
+    margin: 0;
+
+    font-size:
+        23px;
+
+}
+
+
+.modalHeader p {
+
+    margin:
+        5px 0 0;
+
+    color:
+        var(--muted);
+
+    font-size:
+        13px;
+
+}
+
+
+.modalClose {
+
+    width: 40px;
+    height: 40px;
+
+    padding: 0;
+
+    font-size:
+        25px;
+
+    background:
+        transparent;
+
+}
+
+
+.formRow {
+
+    display:
+        grid;
+
+    grid-template-columns:
+        1fr;
+
+    gap:
+        14px;
+
+}
+
+
+.field label {
+
+    display:
+        block;
+
+    margin-bottom:
+        8px;
+
+    color:
+        var(--muted-strong);
+
+    font-size:
+        13px;
+
+    font-weight:
+        600;
+
+}
+
+
+/*
+ * Espaçamento entre um campo
+ * e o próximo título/label.
+ */
+
+.field+.field {
+
+    margin-top:
+        6px;
+
+}
+
+
+.help {
+
+    display:
+        flex;
+
+    gap:
+        12px;
+
+    margin:
+        17px 0 0;
+
+    padding:
+        15px;
+
+    border-radius:
+        13px;
+
+    color:
+        var(--muted);
+
+    background:
+        rgba(79, 140, 255, .055);
+
+    border:
+        1px solid rgba(79, 140, 255, .12);
+
+    font-size:
+        13px;
+
+    line-height:
+        1.55;
+
+}
+
+
+.helpIcon {
+
+    color:
+        #78a8ff;
+
+    font-size:
+        18px;
+
+}
+
+
+.modalActions {
+
+    display:
+        flex;
+
+    justify-content:
+        flex-end;
+
+    gap:
+        10px;
+
+    margin-top:
+        22px;
+
+}
+
+
+
+/* ==========================================================
+       TOAST
+    ========================================================== */
+
+.toast {
+
+    position:
+        fixed;
+
+    left:
+        50%;
+
+    bottom:
+        28px;
+
+    display:
+        flex;
+
+    align-items:
+        center;
+
+    gap:
+        11px;
+
+    padding:
+        13px 19px;
+
+    border-radius:
+        14px;
+
+    color:
+        var(--text);
+
+    background:
+        rgba(17, 27, 42, .96);
+
+    border:
+        1px solid rgba(78, 226, 154, .38);
+
+    box-shadow:
+
+        0 15px 50px rgba(0, 0, 0, .35);
+
+    transform:
+        translate(-50%, 25px);
+
+    opacity:
+        0;
+
+    pointer-events:
+        none;
+
+    transition:
+        .22s ease;
+
+    z-index:
+        200;
+
+}
+
+
+.toast.show {
+
+    opacity:
+        1;
+
+    transform:
+        translate(-50%, 0);
+
+}
+
+
+/* ==========================================================
+       GENERAL
+    ========================================================== */
+
+.hidden {
+
+    display:
+        none !important;
+
+}
+
+
+.dangerButton {
+
+    color:
+        var(--danger);
+
+}
+
+
+.dangerButton:hover {
+
+    color:
+        #ff9299;
+
+    background:
+        rgba(255, 104, 114, .09);
+
+    border-color:
+        rgba(255, 104, 114, .16);
+
+}
+
+
+.toggleCodesIcon svg {
+
+    display:
+        block;
+
+}
+
+
+/* ==========================================================
+       VAULT LOCK / AUTH
+    ========================================================== */
+
+.authScreen {
+
+    position:
+        fixed;
+
+    inset:
+        0;
+
+    z-index:
+        999;
+
+    display:
+        grid;
+
+    place-items:
+        center;
+
+    padding:
+        20px;
+
+    background:
+        rgba(7, 12, 18, .96);
+
+    backdrop-filter:
+        blur(12px);
+
+}
+
+
+.authCard {
+
+    width:
+        min(100%, 430px);
+
+    max-height:
+        calc(100vh - 40px);
+
+    overflow-y:
+        auto;
+
+    padding:
+        34px;
+
+    border:
+        1px solid rgba(255, 255, 255, .12);
+
+    border-radius:
+        22px;
+
+    background:
+        rgba(20, 29, 39, .96);
+
+    box-shadow:
+
+        0 24px 80px rgba(0, 0, 0, .45);
+
+}
+
+
+.authLogo {
+    margin: 0px auto 6px;
+}
+
+.loginTitle {
+    margin: 0px auto 20px;
+    padding-bottom: 4px;
+
+    font-size: 22px;
+
+    text-align: center;
+    color: #70a1ff;
+}
+
+.loginTitle::after {
+    content: "";
+
+    display: block;
+
+    width: 100%;
+
+    height: 1px;
+
+    margin-top: 6px;
+
+    background:
+        var(--line);
+}
+
+#authTitle {
+    margin-top: 10px;
+
+    font-size: 18px;
+
+    text-align: left;
+}
+
+#authDescription {
+
+    color:
+        var(--muted);
+
+    font-size:
+        13px;
+
+    line-height:
+        1.55;
+}
+
+.authCard h2 {
+
+    margin:
+        0 0 8px;
+
+}
+
+
+.authCard p {
+
+    line-height:
+        1.55;
+
+}
+
+
+.authCard form {
+
+    margin-top:
+        24px;
+
+}
+
+
+.authSubmit {
+
+    width:
+        100%;
+
+    margin-top:
+        8px;
+
+}
+
+
+.authHint {
+
+    font-size:
+        13px;
+
+    opacity:
+        .72;
+
+    margin-top:
+        16px;
+
+}
+
+
+.lockButton {
+
+    margin-left:
+        8px;
+
+}
+
+
+body.locked .app {
+
+    filter:
+        blur(4px);
+
+    pointer-events:
+        none;
+
+    user-select:
+        none;
+
+}
+
+
+.menuItemButton {
+
+    width:
+        100%;
+
+    border:
+        0;
+
+    background:
+        transparent;
+
+    color:
+        inherit;
+
+    display: flex;
+
+    align-items: flex-start;
+
+    text-align: left;
+
+    font:
+        inherit;
+
+    cursor:
+        pointer;
+
+}
+
+
+.menuItemButton:hover {
+
+    background:
+        rgba(255, 255, 255, .06);
+
+}
+
+
+.passwordWarning {
+
+    margin:
+        4px 0 18px;
+
+    font-size:
+        13px;
+
+    line-height:
+        1.5;
+
+    opacity:
+        .72;
+
+}
+
+
+.authWarning {
+
+    margin-top:
+        18px;
+
+    padding:
+        14px 16px;
+
+    border:
+        1px solid rgba(255, 190, 80, .35);
+
+    border-radius:
+        12px;
+
+    background:
+        rgba(255, 190, 80, .08);
+
+    font-size:
+        13px;
+
+    line-height:
+        1.55;
+
+}
+
+
+.authWarning strong {
+
+    display:
+        inline-block;
+
+    margin-bottom:
+        4px;
+
+}
+
+
+
+
+/* ==========================================================
+       AUTHOR / DONATE FOOTER
+       Stays visible below the card.
+    ========================================================== */
+
+.authorFooter {
+
+    flex: 0 0 auto;
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+
+    min-height: 30px;
+    margin-top: 14px;
+    padding: 2px 4px 0;
+
+    color: var(--muted);
+    font-size: 12px;
+
+}
+
+.footer-sep {
+    opacity: .55;
+}
+
+.donate-btn {
+
+    padding: 5px 9px;
+
+    color: #809EFA;
+    font-size: 12px;
+
+    background: transparent;
+    border: 0;
+    border-radius: 8px;
+
+}
+
+.donate-btn:hover {
+    color: #acc0fb;
+    background: rgba(247, 199, 92, .08);
+    transform: scale(1.05);
+}
+
+
+/* ==========================================================
+       RESPONSIVE
+    ========================================================== */
+
+@media (max-width: 850px) {
+
+    .accountsHeader {
+
+        align-items:
+            stretch;
+
+        flex-direction:
+            column;
+
+    }
+
+
+    .searchWrapper {
+
+        width:
+            100%;
+
+    }
+
+}
+
+
+@media (max-width: 650px) {
+
+    .app {
+
+        padding:
+            16px 12px;
+
+    }
+
+
+    .header {
+
+        align-items:
+            flex-start;
+
+        margin-bottom:
+            18px;
+
+    }
+
+
+    .logo {
+
+        width:
+            58px;
+
+        height:
+            58px;
+
+    }
+
+
+    .logo img {
+
+        width:
+            44px;
+
+        height:
+            44px;
+
+    }
+
+
+    .brand h1 {
+
+        font-size:
+            28px;
+
+    }
+
+
+    .brand p {
+
+        font-size:
+            12px;
+
+    }
+
+
+    .menuButton {
+
+        width:
+            46px;
+
+        height:
+            46px;
+
+    }
+
+
+    .card {
+
+        padding:
+            13px;
+
+        border-radius:
+            18px;
+
+    }
+
+
+    .accountsTitle {
+
+        align-items:
+            flex-start;
+
+    }
+
+
+    /*
+     * Mobile toolbar:
+     * hide subtitle to preserve vertical space.
+     */
+
+    .accountSubtitle {
+
+        display:
+            none;
+
+    }
+
+
+    #toggleAdd,
+    #toggleCodes {
+
+        width:
+            46px;
+
+        min-width:
+            46px;
+
+        height:
+            46px;
+
+        padding:
+            0;
+
+        display:
+            inline-flex;
+
+        align-items:
+            center;
+
+        justify-content:
+            center;
+
+    }
+
+
+    #toggleAdd .buttonText,
+    #toggleCodes .buttonText {
+
+        display:
+            none;
+
+    }
+
+
+    #toggleAdd .buttonIcon,
+    #toggleCodes .buttonIcon {
+
+        margin:
+            0;
+
+    }
+
+
+    .site {
+
+        padding:
+            15px 9px;
+
+        gap:
+            8px;
+
+    }
+
+
+    .codeActions {
+
+        gap:
+            5px;
+
+    }
+
+
+    .code {
+
+        min-width:
+            104px;
+
+        padding:
+            8px 5px;
+
+        font-size:
+            18px;
+
+        letter-spacing:
+            1.4px;
+
+    }
+
+
+    .iconButton {
+
+        width:
+            38px;
+
+        height:
+            38px;
+
+    }
+
+
+    .otpTimer {
+
+        width:
+            38px;
+
+        height:
+            38px;
+
+    }
+
+
+    .footer {
+
+        align-items:
+            flex-start;
+
+        flex-direction:
+            column;
+
+        gap:
+            5px;
+
+        margin-top:
+            12px;
+
+    }
+
+
+    .authCard {
+
+        padding:
+            24px;
+
+    }
+
+}
+
+
+@media (max-width: 480px) {
+
+    .site {
+
+        grid-template-columns:
+            1fr;
+
+    }
+
+
+    .codeActions {
+
+        justify-content:
+            flex-end;
+
+    }
+
+
+    .modal {
+
+        padding:
+            12px;
+
+    }
+
+
+    .modalDialog {
+
+        padding:
+            18px;
+
+    }
+
+
+    .modalActions button {
+
+        flex:
+            1;
+
+    }
+
+
+    .footer {
+
+        font-size:
+            11px;
+
+    }
+
+}
+
+@media (max-width: 480px) {
+    .authorFooter {
+        gap: 7px;
+        flex-wrap: wrap;
+        font-size: 11px;
+        margin-top: 10px;
+    }
+}

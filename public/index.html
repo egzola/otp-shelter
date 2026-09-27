@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="A self-hosted shelter for your TOTP codes. Your codes. Your sovereignty.">
+    <meta name="application-name" content="OTP-Shelter">
+    <meta name="author" content="egzola">
+    <link rel="icon" type="image/png" href="logo.png">
+
+    <title>OTP-Shelter</title>
+
+    <link rel="stylesheet" href="style.css" />
+
+</head>
+
+
+<body>
+
+
+    <main class="app">
+
+
+        <!-- ======================================================
+             HEADER
+        ======================================================= -->
+
+        <header class="header">
+
+
+            <div class="brand">
+
+
+                <div class="logo">
+                    <img src="logo.png" alt="OTP-Shelter logo" width="64" height="64" />
+                </div>
+
+
+                <div>
+
+                    <h1>
+                        OTP-<span>Shelter</span>
+                    </h1>
+
+
+                    <p>
+
+                        A self-hosted shelter for your TOTP codes.<br>
+
+                        <strong>
+                            Your codes. Your sovereignty.
+                        </strong>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+
+            <!-- MENU -->
+
+            <div class="menu">
+
+
+                <button id="menuButton" class="menuButton" type="button" aria-label="Open backup menu"
+                    aria-expanded="false">
+
+                    ☰
+
+                </button>
+
+
+                <button id="logoutButton" class="menuButton logoutButton" type="button" aria-label="Log out"
+                    title="Log out">
+
+                    ⏻
+
+                </button>
+
+
+                <div id="menuPanel" class="menuPanel">
+
+
+                    <label class="menuItem" for="importFile">
+
+                        <span class="menuItemTitle">
+                            📥 Import backup
+                        </span>
+
+                        <span class="menuItemDescription">
+                            Restore accounts from a backup file
+                        </span>
+
+                    </label>
+
+
+                    <input id="importFile" class="hidden" type="file" accept=".json,application/json">
+
+
+                    <div class="menuDivider"></div>
+
+
+                    <a class="menuItem" href="/api/export">
+
+                        <span class="menuItemTitle">
+                            🔐 Export backup
+                        </span>
+
+                        <span class="menuItemDescription">
+                            Download a protected backup of your accounts
+                        </span>
+
+                    </a>
+
+
+                    <div class="menuDivider"></div>
+
+
+                    <button id="changePasswordButton" class="menuItem menuItemButton" type="button">
+
+                        <span class="menuItemTitle">
+                            🔑 Change password
+                        </span>
+
+                        <span class="menuItemDescription">
+                            Set a new master password
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+            </div>
+
+
+        </header>
+
+
+        <!-- ======================================================
+             MAIN CARD
+        ======================================================= -->
+
+        <section class="card">
+
+
+            <div class="accountsHeader">
+
+
+                <div class="accountsTitle">
+
+
+                    <div>
+
+                        <h2 id="count">
+                            Accounts (0)
+                        </h2>
+
+
+                        <p class="accountSubtitle">
+                            Manage your TOTP accounts securely.
+                        </p>
+
+                    </div>
+
+
+                    <button id="toggleAdd" class="primary" type="button" aria-label="Add account" title="Add account">
+
+                        <span class="buttonIcon" aria-hidden="true">
+
+                            ＋
+
+                        </span>
+
+                        <span class="buttonText">
+                            Add account
+                        </span>
+
+                    </button>
+
+
+                    <!-- HIDE / SHOW CODES -->
+
+                    <button id="toggleCodes" type="button" title="Hide codes" aria-label="Hide codes">
+
+                        <span id="toggleCodesIcon" class="buttonIcon toggleCodesIcon" aria-hidden="true">
+
+                        </span>
+
+
+                        <span id="toggleCodesText" class="buttonText">
+
+                            Hide codes
+
+                        </span>
+
+                    </button>
+
+
+                </div>
+
+
+                <!-- SEARCH -->
+
+                <div class="searchWrapper">
+
+
+                    <span class="searchIcon">
+                        🔍
+                    </span>
+
+
+                    <input id="search" class="search" placeholder="Search accounts..." autocomplete="off">
+
+
+                    <span class="searchShortcut">
+                        Ctrl K
+                    </span>
+
+
+                </div>
+
+
+            </div>
+
+
+            <!-- ACCOUNTS -->
+
+            <div id="sites" class="sites">
+
+            </div>
+
+
+        </section>
+
+
+        <!-- ======================================================
+             AUTHOR / DONATE FOOTER
+        ======================================================= -->
+
+        <div class="authorFooter">
+
+            <span>
+                Developed by egzola
+            </span>
+
+            <span class="footer-sep">
+                ·
+            </span>
+
+            <button id="donateBtn" class="donate-btn" type="button">
+
+                ⚡ Tip with Lightning
+
+            </button>
+
+        </div>
+
+
+    </main>
+
+
+    <!-- ======================================================
+         ADD MODAL
+    ======================================================= -->
+
+    <div id="addModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="addModalTitle">
+
+
+        <div class="modalDialog">
+
+
+            <div class="modalHeader">
+
+
+                <div class="modalTitleGroup">
+
+
+                    <div class="modalIcon">
+                        ＋
+                    </div>
+
+
+                    <div>
+
+                        <h2 id="addModalTitle">
+                            Add account
+                        </h2>
+
+                        <p>
+                            Add a new TOTP account to OTP-Shelter.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <button id="closeAddModal" class="modalClose" type="button" aria-label="Close modal">
+
+                    ×
+
+                </button>
+
+
+            </div>
+
+
+            <form id="addForm">
+
+
+                <div class="formRow">
+
+
+                    <div class="field">
+
+
+                        <label for="name">
+
+                            Site name
+
+                            <span style="
+                                color:var(--muted);
+                                font-weight:400;
+                            ">
+
+                                (optional)
+
+                            </span>
+
+                        </label>
+
+
+                        <input id="name" placeholder="GitHub, Google, Bank..." autocomplete="off">
+
+
+                    </div>
+
+
+                    <div class="field">
+
+
+                        <label for="input">
+                            Secret Code (Base32 or otpauth:// URI)
+                        </label>
+
+
+                        <input id="input" placeholder="Example: JBSWY3DPEHPK3PXP or otpauth://totp/..."
+                            autocomplete="off" required>
+
+
+                    </div>
+
+
+                </div>
+
+
+                <div class="help">
+
+
+                    <span class="helpIcon">
+                        ⓘ
+                    </span>
+
+
+                    <span>
+
+                        You can paste a Base32 secret or a complete
+                        <code>otpauth://totp/...</code>
+                        URI. Account details will automatically be extracted when possible.
+
+                    </span>
+
+
+                </div>
+
+
+                <div class="modalActions">
+
+
+                    <button id="cancelAdd" type="button">
+
+                        Cancel
+
+                    </button>
+
+
+                    <button id="saveButton" class="primary" type="submit">
+
+                        💾 Save account
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ======================================================
+         EDIT NAME MODAL
+    ======================================================= -->
+
+    <div id="editModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="editModalTitle">
+
+
+        <div class="modalDialog">
+
+
+            <div class="modalHeader">
+
+
+                <div class="modalTitleGroup">
+
+
+                    <div class="modalIcon">
+                        ✎
+                    </div>
+
+
+                    <div>
+
+                        <h2 id="editModalTitle">
+                            Edit account
+                        </h2>
+
+                        <p>
+                            Change the display name of this TOTP account.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <button id="closeEditModal" class="modalClose" type="button" aria-label="Close modal">
+
+                    ×
+
+                </button>
+
+
+            </div>
+
+
+            <form id="editForm">
+
+
+                <div class="field">
+
+                    <label for="editName">
+                        Account name
+                    </label>
+
+                    <input id="editName" maxlength="100" autocomplete="off" required>
+
+                </div>
+
+
+                <div class="modalActions">
+
+
+                    <button id="cancelEdit" type="button">
+
+                        Cancel
+
+                    </button>
+
+
+                    <button id="saveEditButton" class="primary" type="submit">
+
+                        💾 Save changes
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ======================================================
+         CHANGE PASSWORD MODAL
+    ======================================================= -->
+
+    <div id="changePasswordModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="changePasswordTitle">
+
+
+        <div class="modalDialog">
+
+
+            <div class="modalHeader">
+
+
+                <div class="modalTitleGroup">
+
+
+                    <div class="modalIcon">
+                        🔑
+                    </div>
+
+
+                    <div>
+
+                        <h2 id="changePasswordTitle">
+                            Change password
+                        </h2>
+
+                        <p>
+                            Your vault will be re-encrypted with your new master password.
+                        </p>
+
+                    </div>
+
+
+                </div>
+
+
+                <button id="closeChangePasswordModal" class="modalClose" type="button" aria-label="Close modal">
+
+                    ×
+
+                </button>
+
+
+            </div>
+
+
+            <form id="changePasswordForm">
+
+
+                <div class="field">
+
+                    <label for="currentPassword">
+                        Current password
+                    </label>
+
+                    <input id="currentPassword" type="password" autocomplete="current-password" required minlength="9">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="newPassword">
+                        New password
+                    </label>
+
+                    <input id="newPassword" type="password" autocomplete="new-password" required minlength="9">
+
+                </div>
+
+
+                <div class="field">
+
+                    <label for="confirmNewPassword">
+                        Confirm new password
+                    </label>
+
+                    <input id="confirmNewPassword" type="password" autocomplete="new-password" required minlength="9">
+
+                </div>
+
+
+                <p class="passwordWarning">
+
+                    Backups exported after this change will use the new password.
+                    Older backups still require the old password.
+
+                </p>
+
+
+                <div class="modalActions">
+
+
+                    <button id="cancelChangePassword" type="button">
+
+                        Cancel
+
+                    </button>
+
+
+                    <button id="saveChangePassword" class="primary" type="submit">
+
+                        🔐 Change password
+
+                    </button>
+
+
+                </div>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ======================================================
+         AUTH SCREEN
+    ======================================================= -->
+
+    <div id="authScreen" class="authScreen">
+
+
+        <div class="authCard">
+
+
+            <!-- SAME LOGO AS HEADER -->
+
+            <div class="authLogo logo">
+
+                <img src="logo.png" alt="OTP-Shelter logo" width="64" height="64" />
+
+            </div>
+
+            <h2 class="loginTitle">
+                OTP-Shelter
+            </h2>
+
+
+            <h2 id="authTitle"></h2>
+
+
+            <p id="authDescription">
+                Enter your master password to unlock your encrypted vault.
+            </p>
+
+
+            <form id="authForm">
+
+
+                <div class="field">
+
+
+                    <label for="authPassword">
+                        Master password
+                    </label>
+
+
+                    <input id="authPassword" type="password" autocomplete="current-password" required minlength="9">
+
+
+                </div>
+
+
+                <div id="authConfirmWrap" class="field hidden">
+
+
+                    <label for="authConfirm">
+                        Confirm master password
+                    </label>
+
+
+                    <input id="authConfirm" type="password" autocomplete="new-password" minlength="9">
+
+
+                </div>
+
+
+                <button id="authSubmit" class="primary authSubmit" type="submit">
+
+                    Unlock vault
+
+                </button>
+
+
+                <div id="authWarning" class="authWarning hidden" role="alert">
+
+                    <strong>
+                        ⚠️ Important
+                    </strong>
+
+                    <br>
+
+                    Your master password cannot be recovered.
+                    OTP-Shelter does not store your password.
+                    If you forget it, you will permanently lose access
+                    to your encrypted vault and TOTP accounts.
+
+                </div>
+
+
+                <p id="authHint" class="authHint">
+
+                </p>
+
+
+            </form>
+
+
+        </div>
+
+
+    </div>
+
+
+    <!-- ======================================================
+         TOAST
+    ======================================================= -->
+
+    <div id="toast" class="toast" role="status">
+
+    </div>
+
+
+    <script src="sweetalert2.js"></script>
+
+    <script src="script.js"></script>
+
+
+</body>
+
+</html>
