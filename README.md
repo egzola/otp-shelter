@@ -4,7 +4,7 @@
 
 # OTP-Shelter
 
-`<img src="./public/logo.png" alt="OTP-Shelter logo">`{=html}
+!<img src="./public/logo.png" alt="OTP-Shelter logo">
 
 A self-hosted TOTP authenticator designed to keep your codes under your
 control.
