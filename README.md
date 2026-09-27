@@ -54,9 +54,9 @@ service.
 
 ## Screenshot
 
-<img src="./public/screen1.png" width="900">
+<img src="./public/screen1.png" width="640">
 
-<img src="./public/screen2.png" width="900">
+<img src="./public/screen2.png" width="640">
 
 
 ------------------------------------------------------------------------
